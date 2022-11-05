@@ -66,6 +66,29 @@ public sealed class OrdersService : IOrdersService
         await Context.SaveChangesAsync();
     }
 
+    public async Task<Orders> DeleteServiceFromOrderAsync(long orderId, long serviceId)
+    {
+        var order = await FindAsync(new OrdersDto { Id = orderId });
+
+        if (order == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Order by id {orderId} wasn`t found.");
+        }
+
+        var baseService = await FindBaseServiceDtoAsync(new ServiceDto { Id = serviceId});
+
+        if (baseService == null)
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found.");
+        }
+
+        order.TotalPrice += baseService.Price;
+        order.Services.Remove(baseService);
+        await Context.SaveChangesAsync();
+
+        return order;
+    }
+
     public async Task<Orders?> FindAsync(OrdersDto entityDto)
     {
         return await Context.Orders
@@ -75,9 +98,20 @@ public sealed class OrdersService : IOrdersService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<IEnumerable<Orders>> GetAsync()
+    public async Task<IEnumerable<Orders>> GetAsync(bool orderByDescending)
     {
-        return await Context.Orders.Include(e => e.Services).ToListAsync();
+        var orders = Context.Orders.AsQueryable();
+
+        if (orderByDescending)
+        {
+            await orders.Include(e => e.Services.OrderByDescending(s => s.Price)).ToListAsync();
+        }
+        else
+        {
+            await orders.Include(e => e.Services).ToListAsync();
+        }
+
+        return orders;
     }
 
     public async Task<bool> IsExistAsync(OrdersDto entityDto)

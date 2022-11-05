@@ -14,7 +14,9 @@ public interface IOrdersService
 
     Task DeleteAsync(Orders entity);
 
-    Task<IEnumerable<Orders>> GetAsync();
+    Task<Orders> DeleteServiceFromOrderAsync(long orderId, long serviceId);
+
+    Task<IEnumerable<Orders>> GetAsync(bool orderByDescending);
 
     Task<Orders?> FindAsync(OrdersDto entityDto);
 

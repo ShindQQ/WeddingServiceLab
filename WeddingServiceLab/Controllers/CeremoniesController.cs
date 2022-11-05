@@ -56,7 +56,7 @@ public sealed class CeremoniesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateCeremonyAsync([Required] long ceremonyId, CeremoniesDto ceremonyForUpdate)
     {
-        if (!await _ceremoniesService.IsExistAsync(ceremonyForUpdate)) return NotFound();
+        if (!await _ceremoniesService.IsExistAsync(new CeremoniesDto { Id = ceremonyId })) return NotFound();
 
         var updatedCeremony = _mapper.Map<Ceremonies>(ceremonyForUpdate);
         updatedCeremony.Id = ceremonyId;

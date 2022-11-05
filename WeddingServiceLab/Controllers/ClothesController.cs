@@ -56,7 +56,7 @@ public sealed class ClothesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateClothAsync([Required] long clothId, ClothesDto clothForUpdate)
     {
-        if (!await _clothesService.IsExistAsync(clothForUpdate)) return NotFound();
+        if (!await _clothesService.IsExistAsync(new ClothesDto { Id = clothId })) return NotFound();
 
         var updatedCloth = _mapper.Map<Clothes>(clothForUpdate);
         updatedCloth.Id = clothId;

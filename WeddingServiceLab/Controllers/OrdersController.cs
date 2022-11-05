@@ -45,9 +45,9 @@ public sealed class OrdersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetOrdersAsync()
+    public async Task<IActionResult> GetOrdersAsync(bool orderByDescending)
     {
-        var ordersFromRepo = await _ordersService.GetAsync();
+        var ordersFromRepo = await _ordersService.GetAsync(orderByDescending);
 
         return Ok(ordersFromRepo);
     }
@@ -86,5 +86,14 @@ public sealed class OrdersController : ControllerBase
         await _ordersService.DeleteAsync(orderForDelete);
 
         return Ok(orderForDelete);
+    }
+
+    [HttpDelete("DeleteServiceFromOrder")]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> DeleteServiceFromOrderAsync([Required] long orderId, [Required] long serviceId)
+    {
+        await _ordersService.DeleteServiceFromOrderAsync(orderId, serviceId);
+
+        return Ok();
     }
 }

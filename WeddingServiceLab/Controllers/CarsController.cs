@@ -56,7 +56,7 @@ public sealed class CarsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateCarAsync([Required] long carId, CarsDto carForUpdate)
     {
-        if (!await _carsService.IsExistAsync(carForUpdate)) return NotFound();
+        if (!await _carsService.IsExistAsync(new CarsDto { Id = carId })) return NotFound();
 
         var updatedCar = _mapper.Map<Cars>(carForUpdate);
         updatedCar.Id = carId;
