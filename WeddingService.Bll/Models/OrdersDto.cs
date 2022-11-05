@@ -1,6 +1,4 @@
-﻿using WeddingService.Bll.Models.Base;
-
-namespace WeddingService.Bll.Models;
+﻿namespace WeddingService.Bll.Models;
 
 public sealed class OrdersDto
 {

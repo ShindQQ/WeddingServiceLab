@@ -5,7 +5,6 @@ using WeddingService.Bll.Models;
 using WeddingService.Bll.Models.Base;
 using WeddingService.Bll.Services.Interfaces;
 using WeddingService.Dal.Entities;
-using WeddingService.Dal.Entities.Base;
 
 namespace WeddingServiceLab.Controllers;
 
