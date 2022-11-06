@@ -10,15 +10,30 @@ using WeddingService.Dal.Entities.Base;
 
 namespace WeddingService.Bll.Services;
 
+/// <summary>
+///     Class for orders service
+/// </summary>
 public sealed class OrdersService : IOrdersService
 {
+    /// <summary>
+    ///		Db context
+    /// </summary>
     private readonly WeddingServiceContext Context;
 
+    /// <summary>
+	///		Contructor for orders service
+	/// </summary>
+	/// <param name="context">Db context</param>
     public OrdersService(WeddingServiceContext context)
     {
         Context = context;
     }
 
+    /// <summary>
+    ///     Adding order to db
+    /// </summary>
+    /// <param name="entity">Order which will be added</param>
+    /// <returns>Added order</returns>
     public async Task<Orders> AddAsync(Orders entity)
     {
         await Context.Orders.AddAsync(entity);
@@ -27,6 +42,12 @@ public sealed class OrdersService : IOrdersService
         return entity;
     }
 
+    /// <summary>
+    ///     Adding service to order
+    /// </summary>
+    /// <param name="orderId">Id of the order</param>
+    /// <param name="baseServiceDto">Service which will be added</param>
+    /// <returns>Order with added service</returns>
     public async Task<Orders> AddServiceToOrderAsync(long orderId, ServiceDto baseServiceDto)
     {
         var order = await FindAsync(new OrdersDto { Id = orderId });
@@ -50,6 +71,11 @@ public sealed class OrdersService : IOrdersService
         return order;
     }
 
+    /// <summary>
+    ///     Searching for base service dto
+    /// </summary>
+    /// <param name="baseServiceDto">Dto with needed params</param>
+    /// <returns>Found BaseServiceEntity</returns>
     private async Task<BaseServiceEntity?> FindBaseServiceDtoAsync(ServiceDto baseServiceDto)
     {
         return await Context.BaseServices
@@ -60,12 +86,23 @@ public sealed class OrdersService : IOrdersService
             .FirstOrDefaultAsync();
     }
 
+    /// <summary>
+    ///     Removing order from db
+    /// </summary>
+    /// <param name="entity">Order for delete</param>
+    /// <returns>Task</returns>
     public async Task DeleteAsync(Orders entity)
     {
         Context.Orders.Remove(entity);
         await Context.SaveChangesAsync();
     }
 
+    /// <summary>
+    ///     Removing service from order
+    /// </summary>
+    /// <param name="orderId">Id of the order</param>
+    /// <param name="serviceId">Id of the service in order for delete</param>
+    /// <returns>Order with removed service</returns>
     public async Task<Orders> DeleteServiceFromOrderAsync(long orderId, long serviceId)
     {
         var order = await FindAsync(new OrdersDto { Id = orderId });
@@ -89,6 +126,11 @@ public sealed class OrdersService : IOrdersService
         return order;
     }
 
+    /// <summary>
+    ///     Searching for Order by filter
+    /// </summary>
+    /// <param name="entityDto">Order with needed params</param>
+    /// <returns>Found order or null if it doesn`t exist</returns>
     public async Task<Orders?> FindAsync(OrdersDto entityDto)
     {
         return await Context.Orders
@@ -98,6 +140,11 @@ public sealed class OrdersService : IOrdersService
             .FirstOrDefaultAsync();
     }
 
+    /// <summary>
+    ///     Receiving all orders from db
+    /// </summary>
+    /// <param name="orderByDescending">Ordering by descending</param>
+    /// <returns>IEnumerable of Orders</returns>
     public async Task<IEnumerable<Orders>> GetAsync(bool orderByDescending)
     {
         var orders = Context.Orders.AsQueryable();
@@ -114,6 +161,11 @@ public sealed class OrdersService : IOrdersService
         return orders;
     }
 
+    /// <summary>
+    ///     Checking is there such order in db
+    /// </summary>
+    /// <param name="entityDto">Order with neeeded params</param>
+    /// <returns>True or false if not found</returns>
     public async Task<bool> IsExistAsync(OrdersDto entityDto)
     {
         return await Context.Orders
@@ -123,6 +175,11 @@ public sealed class OrdersService : IOrdersService
             .AnyAsync();
     }
 
+    /// <summary>
+    ///     Updating order in db
+    /// </summary>
+    /// <param name="entity">Order which will be updated</param>
+    /// <returns>Task</returns>
     public async Task UpdateAsync(Orders entity)
     {
         Context.Orders.Update(entity);
