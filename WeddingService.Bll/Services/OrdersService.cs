@@ -112,7 +112,7 @@ public sealed class OrdersService : IOrdersService
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Order by id {orderId} wasn`t found.");
         }
 
-        var baseService = await FindBaseServiceDtoAsync(new ServiceDto { Id = serviceId});
+        var baseService = await FindBaseServiceDtoAsync(new ServiceDto { Id = serviceId });
 
         if (baseService == null)
         {

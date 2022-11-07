@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeddingService.Dal\WeddingService.Dal.csproj" />
-    <ProjectReference Include="..\WeddingService.Dll\WeddingService.Dal.csproj" />
   </ItemGroup>
 
 </Project>

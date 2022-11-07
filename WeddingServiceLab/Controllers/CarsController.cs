@@ -19,7 +19,7 @@ public sealed class CarsController : ControllerBase
     ///     Mapping Cars Entities
     /// </summary>
     private readonly IMapper _mapper;
-    
+
     /// <summary>
     ///     Cars service
     /// </summary>

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingServiceLab", "Weddin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Bll", "WeddingService.Bll\WeddingService.Bll.csproj", "{C347D36D-3C46-4A68-82AB-2B77604C13B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingService.Dal", "WeddingService.Dal\WeddingService.Dal.csproj", "{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Dal", "WeddingService.Dal\WeddingService.Dal.csproj", "{C2F69013-6F46-492C-8176-DFDE1A766647}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{C347D36D-3C46-4A68-82AB-2B77604C13B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C347D36D-3C46-4A68-82AB-2B77604C13B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C347D36D-3C46-4A68-82AB-2B77604C13B6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F69013-6F46-492C-8176-DFDE1A766647}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F69013-6F46-492C-8176-DFDE1A766647}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F69013-6F46-492C-8176-DFDE1A766647}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F69013-6F46-492C-8176-DFDE1A766647}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

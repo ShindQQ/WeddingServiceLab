@@ -27,12 +27,12 @@ public abstract class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : Base
 		Context = context;
 	}
 
-    /// <summary>
-    ///     Adding service to db
-    /// </summary>
-    /// <param name="entity">Entity which will be added</param>
-    /// <returns>Added entity</returns>
-    public virtual async Task<T1> AddAsync(T1 entity)
+	/// <summary>
+	///     Adding service to db
+	/// </summary>
+	/// <param name="entity">Entity which will be added</param>
+	/// <returns>Added entity</returns>
+	public virtual async Task<T1> AddAsync(T1 entity)
 	{
 		await Context.Set<T1>().AddAsync(entity);
 		await Context.SaveChangesAsync();
@@ -40,43 +40,43 @@ public abstract class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : Base
 		return entity;
 	}
 
-    /// <summary>
-    ///     Updating service in db
-    /// </summary>
-    /// <param name="entity">Entity fo update</param>
-    /// <returns>Task</returns>
-    public virtual async Task UpdateAsync(T1 entity)
+	/// <summary>
+	///     Updating service in db
+	/// </summary>
+	/// <param name="entity">Entity fo update</param>
+	/// <returns>Task</returns>
+	public virtual async Task UpdateAsync(T1 entity)
 	{
 		Context.Set<T1>().Update(entity);
 		await Context.SaveChangesAsync();
 	}
 
-    /// <summary>
-    ///     Removing entity from db
-    /// </summary>
-    /// <param name="entity">Entity for delete</param>
-    /// <returns>Task</returns>
-    public virtual async Task DeleteAsync(T1 entity)
+	/// <summary>
+	///     Removing entity from db
+	/// </summary>
+	/// <param name="entity">Entity for delete</param>
+	/// <returns>Task</returns>
+	public virtual async Task DeleteAsync(T1 entity)
 	{
 		Context.Set<T1>().Remove(entity);
 		await Context.SaveChangesAsync();
 	}
 
-    /// <summary>
-    ///     Receiving services from db
-    /// </summary>
-    /// <returns>IEnumerable of entity</returns>
-    public virtual async Task<IEnumerable<T1>> GetAsync()
+	/// <summary>
+	///     Receiving services from db
+	/// </summary>
+	/// <returns>IEnumerable of entity</returns>
+	public virtual async Task<IEnumerable<T1>> GetAsync()
 	{
 		return await Context.Set<T1>().Include(e => e.Orders).ToListAsync();
 	}
 
-    /// <summary>
-    ///     Searching for entity by filter
-    /// </summary>
-    /// <param name="entityDto">Dto with needed params</param>
-    /// <returns>Entity or null if not found</returns>
-    public virtual async Task<T1?> FindAsync(T2 entityDto)
+	/// <summary>
+	///     Searching for entity by filter
+	/// </summary>
+	/// <param name="entityDto">Dto with needed params</param>
+	/// <returns>Entity or null if not found</returns>
+	public virtual async Task<T1?> FindAsync(T2 entityDto)
 	{
 		return await Context.Set<T1>()
 			.Include(e => e.Orders)
@@ -86,12 +86,12 @@ public abstract class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : Base
 			.FirstOrDefaultAsync();
 	}
 
-    /// <summary>
-    ///     Checking existing of the entity by filter
-    /// </summary>
-    /// <param name="entityDto">Dto with needed params</param>
-    /// <returns>True or false if entity not found</returns>
-    public virtual async Task<bool> IsExistAsync(T2 entityDto)
+	/// <summary>
+	///     Checking existing of the entity by filter
+	/// </summary>
+	/// <param name="entityDto">Dto with needed params</param>
+	/// <returns>True or false if entity not found</returns>
+	public virtual async Task<bool> IsExistAsync(T2 entityDto)
 	{
 		return await Context.Set<T1>()
 			.Include(e => e.Orders)
