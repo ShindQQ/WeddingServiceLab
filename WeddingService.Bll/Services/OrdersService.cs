@@ -119,7 +119,7 @@ public sealed class OrdersService : IOrdersService
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found.");
         }
 
-        order.TotalPrice += baseService.Price;
+        order.TotalPrice -= baseService.Price;
         order.Services.Remove(baseService);
         await Context.SaveChangesAsync();
 

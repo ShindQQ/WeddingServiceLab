@@ -15,7 +15,6 @@ public abstract class BaseServiceDto
     /// </summary>
     public decimal? Price { get; set; }
 
-
     /// <summary>
     ///     Name of the service
     /// </summary>

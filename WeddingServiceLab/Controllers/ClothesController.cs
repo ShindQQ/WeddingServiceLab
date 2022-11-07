@@ -75,7 +75,7 @@ public sealed class ClothesController : ControllerBase
     /// <status code="404">Cloth service not found</status>
     [HttpGet("{id}", Name = "GetCloth")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetClothAsync(long id)
+    public async Task<IActionResult> GetClothAsync([Required] long id)
     {
         var clothesFromRepo = await _clothesService.FindAsync(new ClothesDto { Id = id });
 

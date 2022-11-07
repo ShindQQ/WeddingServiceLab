@@ -49,13 +49,18 @@ public sealed class HttpStatusCodeCustomExceptionMiddleware
 
             _logger.LogError(ex.Message);
 
-
             await HandleExceptionAsync(context, ex);
 
             return;
         }
     }
 
+    /// <summary>
+    ///     Handling status code exception
+    /// </summary>
+    /// <param name="context">Http context</param>
+    /// <param name="exception">Exception with status code and message</param>
+    /// <returns>Task</returns>
     private async Task HandleExceptionAsync(HttpContext context, HttpStatusCodeException exception)
     {
         context.Response.Clear();

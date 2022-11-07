@@ -97,7 +97,7 @@ public sealed class OrdersController : ControllerBase
     /// <status code="404">Such order doesn`t found</status>
     [HttpGet("{id}", Name = "GetOrder")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetOrderAsync(long id)
+    public async Task<IActionResult> GetOrderAsync([Required] long id)
     {
         var orderFromRepo = await _ordersService.FindAsync(new OrdersDto { Id = id });
 

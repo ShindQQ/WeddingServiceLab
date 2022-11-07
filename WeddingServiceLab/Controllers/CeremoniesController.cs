@@ -75,7 +75,7 @@ public sealed class CeremoniesController : ControllerBase
     /// <status code="404">Ceremony service not found</status>
     [HttpGet("{id}", Name = "GetCeremony")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetCeremonyAsync(long id)
+    public async Task<IActionResult> GetCeremonyAsync([Required] long id)
     {
         var ceremonyFromRepo = await _ceremoniesService.FindAsync(new CeremoniesDto { Id = id });
 

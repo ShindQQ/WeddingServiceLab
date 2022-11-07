@@ -75,7 +75,7 @@ public sealed class CarsController : ControllerBase
     /// <status code="404">Car service not found</status>
     [HttpGet("{id}", Name = "GetCar")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetCarAsync(long id)
+    public async Task<IActionResult> GetCarAsync([Required] long id)
     {
         var carFromRepo = await _carsService.FindAsync(new CarsDto { Id = id });
 
