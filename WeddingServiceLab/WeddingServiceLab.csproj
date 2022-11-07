@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\WeddingService.Bll\WeddingService.Bll.csproj" />
+    <ProjectReference Include="..\WeddingService.Dal\WeddingService.Dal.csproj" />
     <ProjectReference Include="..\WeddingService.Dll\WeddingService.Dal.csproj" />
   </ItemGroup>
 

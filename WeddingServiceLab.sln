@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingServiceLab", "WeddingServiceLab\WeddingServiceLab.csproj", "{02E4E534-E562-4A3B-A812-2EF454B57F37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingServiceLab", "WeddingServiceLab\WeddingServiceLab.csproj", "{02E4E534-E562-4A3B-A812-2EF454B57F37}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingService.Bll", "WeddingService.Bll\WeddingService.Bll.csproj", "{C347D36D-3C46-4A68-82AB-2B77604C13B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Bll", "WeddingService.Bll\WeddingService.Bll.csproj", "{C347D36D-3C46-4A68-82AB-2B77604C13B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingService.Dal", "WeddingService.Dll\WeddingService.Dal.csproj", "{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingService.Dal", "WeddingService.Dal\WeddingService.Dal.csproj", "{F68FF6A6-308C-4EC1-AB99-DB1E3664FA9A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
