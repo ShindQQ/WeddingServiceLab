@@ -1,4 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WeddingService.Bll.Models;
 using WeddingService.Bll.Services;
 using WeddingService.Bll.Services.Interfaces;
@@ -12,9 +15,26 @@ namespace WeddingServiceLab.Tests
     {
         private readonly ICeremoniesService _ceremoniesService;
 
-        public CaremonyServiceTests(ICeremoniesService ceremoniesService)
+        public static IConfiguration InitConfiguration()
         {
-            _ceremoniesService = ceremoniesService;
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+
+            return config;
+        }
+
+        public CaremonyServiceTests()
+        {
+            var services = new ServiceCollection();
+            services.AddScoped<ICeremoniesService, CeremoniesService>();
+            services.AddDbContext<WeddingServiceContext>(options =>
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            _ceremoniesService = serviceProvider.GetService<ICeremoniesService>(); ;
         }
 
         [Fact]
@@ -55,9 +75,10 @@ namespace WeddingServiceLab.Tests
         public void FindAsync_FindCeremony_CeremonyHasId1()
         {
             int ID = 1;
+
             var ceremony = _ceremoniesService.FindAsync(new CeremoniesDto { Id = 1 }).Result;
-            long ceremonyID = ceremony.Id; 
-            Assert.Equal(ceremonyID, ID);
+
+            Assert.Equal(ceremony.Id, ID);
         }
 
         [Fact]

@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WeddingService.Bll.Models;
 using WeddingService.Bll.Services;
 using WeddingService.Bll.Services.Interfaces;
 using WeddingService.Dal.Contexts;
-using WeddingService.Dal.Entities;
 using Xunit;
 
 namespace WeddingServiceLab.Tests
@@ -12,18 +13,26 @@ namespace WeddingServiceLab.Tests
     {
         private readonly IClothesService _clothesService;
 
-        public ClothesServiceTests(IClothesService clothesService)
+        public static IConfiguration InitConfiguration()
         {
-            _clothesService = clothesService;
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+
+            return config;
         }
 
-        [Fact]
-        public void AddAsync_AddedClothes_ReturnedSameClothes()
+        public ClothesServiceTests()
         {
-            var clothes = new Clothes { Name = "Clothes1", Price = 1000 };
-            var AddedClothes = _clothesService.AddAsync(clothes).Result;
+            var services = new ServiceCollection();
+            services.AddScoped<IClothesService, ClothesService>();
+            services.AddDbContext<WeddingServiceContext>(options =>
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
 
-            Assert.Equal(clothes, AddedClothes);
+            var serviceProvider = services.BuildServiceProvider();
+
+            _clothesService = serviceProvider.GetService<IClothesService>(); ;
         }
 
         [Fact]
@@ -43,7 +52,7 @@ namespace WeddingServiceLab.Tests
         [Fact]
         public void DeleteAsync_DeleteClothes_DeletedClothesInDB()
         {
-            var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1}).Result;
+            var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
 
             _clothesService.DeleteAsync(clothes);
 
@@ -56,9 +65,8 @@ namespace WeddingServiceLab.Tests
         {
             int ID = 1;
             var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
-            long clothesID = clothes.Id;
 
-            Assert.Equal(clothesID, ID);
+            Assert.Equal(clothes.Id, ID);
         }
 
         [Fact]

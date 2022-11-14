@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WeddingService.Bll.Models;
 using WeddingService.Bll.Services;
 using WeddingService.Bll.Services.Interfaces;
@@ -12,10 +14,28 @@ namespace WeddingServiceLab.Tests
     {
         private readonly ICarsService _carsService;
 
-        public CarsServiceTests(ICarsService carsService)
+        public static IConfiguration InitConfiguration()
         {
-            _carsService = carsService;
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+
+            return config;
         }
+
+        public CarsServiceTests()
+        {
+            var services = new ServiceCollection();
+            services.AddScoped<ICarsService, CarsService>();
+            services.AddDbContext<WeddingServiceContext>(options =>
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            _carsService = serviceProvider.GetService<ICarsService>(); ;
+        }
+
         [Fact]
         public void AddAsync_AddedCar_ReturnedSameCar()
         {
@@ -55,9 +75,8 @@ namespace WeddingServiceLab.Tests
         {
             int ID = 1;
             var car = _carsService.FindAsync(new CarsDto { Id = 1 }).Result;
-            long carID = car.Id;
 
-            Assert.Equal(carID, ID);
+            Assert.Equal(car.Id, ID);
         }
 
         [Fact]

@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using WeddingService.Bll.Models;
 using WeddingService.Bll.Models.Base;
 using WeddingService.Bll.Services;
@@ -14,10 +16,28 @@ namespace WeddingServiceLab.Tests
         private readonly IOrdersService _ordersService;
         private readonly ServiceDto _serviceEntity;
 
-        public OrdersServiceTests(IOrdersService ordersService, ServiceDto serviceEntity)
+        public static IConfiguration InitConfiguration()
         {
-            _ordersService = ordersService;
+            var config = new ConfigurationBuilder()
+               .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
+
+            return config;
+        }
+
+        public OrdersServiceTests(ServiceDto serviceEntity)
+        {
             _serviceEntity = serviceEntity;
+
+            var services = new ServiceCollection();
+            services.AddScoped<IOrdersService, OrdersService>();
+            services.AddDbContext<WeddingServiceContext>(options =>
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            _ordersService = serviceProvider.GetService<IOrdersService>(); ;
         }
 
         [Fact]
@@ -32,7 +52,7 @@ namespace WeddingServiceLab.Tests
         [Fact]
         public void AddServiceToOrderAsync_AddService_ReturnedOrder()
         {
-            var order = _ordersService.FindAsync(new OrdersDto { Id = 1}).Result;
+            var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
 
             var newOrder = _ordersService.AddServiceToOrderAsync(1, _serviceEntity).Result;
 
