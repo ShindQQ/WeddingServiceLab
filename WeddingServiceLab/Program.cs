@@ -44,7 +44,7 @@ builder.Services.AddScoped<IOrdersService, OrdersService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddDbContext<WeddingServiceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<WeddingServiceContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("SalivonConnection")));
 
 var app = builder.Build();
 
