@@ -82,7 +82,8 @@ public sealed class OrdersService : IOrdersService
             .Include(e => e.Orders)
             .Where(filter => !baseServiceDto.Id.HasValue || filter.Id == baseServiceDto.Id)
             .Where(filter => !baseServiceDto.Price.HasValue || filter.Price == baseServiceDto.Price)
-            .Where(filter => string.IsNullOrEmpty(baseServiceDto.Name) || filter.Name.ToLower().Contains(baseServiceDto.Name.ToLower()))
+            .Where(filter => string.IsNullOrEmpty(baseServiceDto.Name) 
+            || filter.Name.ToLower().Contains(baseServiceDto.Name.ToLower()))
             .FirstOrDefaultAsync();
     }
 
