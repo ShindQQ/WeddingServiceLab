@@ -63,6 +63,10 @@ public sealed class OrdersService : IOrdersService
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {baseServiceDto.Id} wasn`t found.");
         }
+        else if(order.Services.Contains(baseService))
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, $"Base entity by id {baseServiceDto.Id} already added.");
+        }
 
         order.TotalPrice += baseService.Price;
         order.Services.Add(baseService);
@@ -82,7 +86,8 @@ public sealed class OrdersService : IOrdersService
             .Include(e => e.Orders)
             .Where(filter => !baseServiceDto.Id.HasValue || filter.Id == baseServiceDto.Id)
             .Where(filter => !baseServiceDto.Price.HasValue || filter.Price == baseServiceDto.Price)
-            .Where(filter => string.IsNullOrEmpty(baseServiceDto.Name) || filter.Name.ToLower().Contains(baseServiceDto.Name.ToLower()))
+            .Where(filter => string.IsNullOrEmpty(baseServiceDto.Name) 
+            || filter.Name.ToLower().Contains(baseServiceDto.Name.ToLower()))
             .FirstOrDefaultAsync();
     }
 

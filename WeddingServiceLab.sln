@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Bll", "Weddi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Dal", "WeddingService.Dal\WeddingService.Dal.csproj", "{C2F69013-6F46-492C-8176-DFDE1A766647}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingServiceLab.Tests", "WeddingServiceLab.Tests\WeddingServiceLab.Tests.csproj", "{22332173-58C4-4807-BE4E-55EDC9A51C33}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{C2F69013-6F46-492C-8176-DFDE1A766647}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2F69013-6F46-492C-8176-DFDE1A766647}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2F69013-6F46-492C-8176-DFDE1A766647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22332173-58C4-4807-BE4E-55EDC9A51C33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22332173-58C4-4807-BE4E-55EDC9A51C33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22332173-58C4-4807-BE4E-55EDC9A51C33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22332173-58C4-4807-BE4E-55EDC9A51C33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
