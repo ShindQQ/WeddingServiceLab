@@ -63,6 +63,10 @@ public sealed class OrdersService : IOrdersService
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {baseServiceDto.Id} wasn`t found.");
         }
+        else if(order.Services.Contains(baseService))
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.BadRequest, $"Base entity by id {baseServiceDto.Id} already added.");
+        }
 
         order.TotalPrice += baseService.Price;
         order.Services.Add(baseService);
