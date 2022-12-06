@@ -63,7 +63,7 @@ public sealed class CarsController : ControllerBase
     {
         var carsFromRepo = await _carsService.GetAsync();
 
-        return Ok(carsFromRepo);
+        return Ok(_mapper.Map<IEnumerable<CarsDto>>(carsFromRepo));
     }
 
     /// <summary>

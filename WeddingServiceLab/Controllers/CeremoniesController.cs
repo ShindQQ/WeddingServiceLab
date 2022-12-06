@@ -64,7 +64,7 @@ public sealed class CeremoniesController : ControllerBase
     {
         var ceremoniesFromRepo = await _ceremoniesService.GetAsync();
 
-        return Ok(ceremoniesFromRepo);
+        return Ok(_mapper.Map<IEnumerable<CeremoniesDto>>(ceremoniesFromRepo));
     }
 
     /// <summary>

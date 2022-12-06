@@ -63,7 +63,7 @@ public sealed class ClothesController : ControllerBase
     {
         var clothesFromRepo = await _clothesService.GetAsync();
 
-        return Ok(clothesFromRepo);
+        return Ok(_mapper.Map<IEnumerable<ClothesDto>>(clothesFromRepo));
     }
 
     /// <summary>
