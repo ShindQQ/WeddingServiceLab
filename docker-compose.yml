@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+ weddingServices:
+  image: wedding_service_image
+  restart: unless-stopped
+  container_name: WeddingServiceLabContainer
+  build:
+   context: .
+   dockerfile: WeddingServiceLab/Dockerfile
+  environment: 
+  - ASPNETCORE_URLS:http://*:5173;https://*:7173;
+  ports:
+  - "8000:80"
+ sql-server-db:
+  container_name: sql-server-db
+  image: mcr.microsoft.com/mssql/server:2022-latest
+  ports:
+    - "1433:1433"
+  environment:
+    SA_PASSWORD: "WeddingServicePassword123"
+    ACCEPT_EULA: "Y"

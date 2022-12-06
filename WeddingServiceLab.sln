@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Bll", "Weddi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingService.Dal", "WeddingService.Dal\WeddingService.Dal.csproj", "{C2F69013-6F46-492C-8176-DFDE1A766647}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeddingServiceLab.Tests", "WeddingServiceLab.Tests\WeddingServiceLab.Tests.csproj", "{22332173-58C4-4807-BE4E-55EDC9A51C33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeddingServiceLab.Tests", "WeddingServiceLab.Tests\WeddingServiceLab.Tests.csproj", "{22332173-58C4-4807-BE4E-55EDC9A51C33}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{5359ACA8-DD1D-4F0C-9F43-50314CE20414}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
