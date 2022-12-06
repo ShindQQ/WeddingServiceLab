@@ -14,7 +14,6 @@ namespace WeddingServiceLab.Tests
     public class OrdersServiceTests
     {
         private readonly IOrdersService _ordersService;
-        private readonly ServiceDto _serviceEntity;
 
         public static IConfiguration InitConfiguration()
         {
@@ -26,14 +25,12 @@ namespace WeddingServiceLab.Tests
             return config;
         }
 
-        public OrdersServiceTests(ServiceDto serviceEntity)
+        public OrdersServiceTests()
         {
-            _serviceEntity = serviceEntity;
-
             var services = new ServiceCollection();
             services.AddScoped<IOrdersService, OrdersService>();
             services.AddDbContext<WeddingServiceContext>(options =>
-                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:DefaultConnection"]));
 
             var serviceProvider = services.BuildServiceProvider();
 
@@ -54,7 +51,7 @@ namespace WeddingServiceLab.Tests
         {
             var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
 
-            var newOrder = _ordersService.AddServiceToOrderAsync(1, _serviceEntity).Result;
+            var newOrder = _ordersService.AddServiceToOrderAsync(1, new ServiceDto { Id = 1, Name = "car1", Price = 100}).Result;
 
             Assert.Equal(order, newOrder);
         }

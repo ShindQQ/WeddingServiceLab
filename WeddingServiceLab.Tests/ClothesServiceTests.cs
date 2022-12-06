@@ -28,7 +28,7 @@ namespace WeddingServiceLab.Tests
             var services = new ServiceCollection();
             services.AddScoped<IClothesService, ClothesService>();
             services.AddDbContext<WeddingServiceContext>(options =>
-                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:SalivonConnection"]));
+                    options.UseSqlServer(InitConfiguration()["ConnectionStrings:DefaultConnection"]));
 
             var serviceProvider = services.BuildServiceProvider();
 
