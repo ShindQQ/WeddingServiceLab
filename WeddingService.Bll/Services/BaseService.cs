@@ -11,7 +11,7 @@ namespace WeddingService.Bll.Services;
 /// </summary>
 /// <typeparam name="T1">Represents entity</typeparam>
 /// <typeparam name="T2">Represents dto</typeparam>
-public abstract class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : BaseServiceEntity where T2 : BaseServiceDto
+public class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : BaseServiceEntity where T2 : BaseServiceDto
 {
 	/// <summary>
 	///		Db context
@@ -22,7 +22,7 @@ public abstract class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : Base
 	///		Contructor for base service
 	/// </summary>
 	/// <param name="context">Db context</param>
-	protected BaseService(WeddingServiceContext context)
+	public BaseService(WeddingServiceContext context)
 	{
 		Context = context;
 	}

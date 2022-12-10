@@ -20,6 +20,8 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     private readonly WeddingServiceContext Context;
 
+    private readonly BaseService<BaseServiceEntity, BaseServiceDto> _baseService;
+
     /// <summary>
 	///		Contructor for orders service
 	/// </summary>
@@ -27,6 +29,7 @@ public sealed class OrdersService : IOrdersService
     public OrdersService(WeddingServiceContext context)
     {
         Context = context;
+        _baseService = new(context);
     }
 
     /// <summary>
@@ -57,7 +60,7 @@ public sealed class OrdersService : IOrdersService
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Order by id {orderId} wasn`t found.");
         }
 
-        var baseService = await FindBaseServiceDtoAsync(baseServiceDto);
+        var baseService = await _baseService.FindAsync(baseServiceDto);
 
         if (baseService == null)
         {
@@ -73,22 +76,6 @@ public sealed class OrdersService : IOrdersService
         await Context.SaveChangesAsync();
 
         return order;
-    }
-
-    /// <summary>
-    ///     Searching for base service dto
-    /// </summary>
-    /// <param name="baseServiceDto">Dto with needed params</param>
-    /// <returns>Found BaseServiceEntity</returns>
-    private async Task<BaseServiceEntity?> FindBaseServiceDtoAsync(ServiceDto baseServiceDto)
-    {
-        return await Context.BaseServices
-            .Include(e => e.Orders)
-            .Where(filter => !baseServiceDto.Id.HasValue || filter.Id == baseServiceDto.Id)
-            .Where(filter => !baseServiceDto.Price.HasValue || filter.Price == baseServiceDto.Price)
-            .Where(filter => string.IsNullOrEmpty(baseServiceDto.Name) 
-            || filter.Name.ToLower().Contains(baseServiceDto.Name.ToLower()))
-            .FirstOrDefaultAsync();
     }
 
     /// <summary>
@@ -117,11 +104,15 @@ public sealed class OrdersService : IOrdersService
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Order by id {orderId} wasn`t found.");
         }
 
-        var baseService = await FindBaseServiceDtoAsync(new ServiceDto { Id = serviceId });
+        var baseService = await _baseService.FindAsync(new ServiceDto { Id = serviceId });
 
         if (baseService == null)
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found.");
+        }
+        else if(!order.Services.Contains(baseService))
+        {
+            throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found in order by id {orderId}.");
         }
 
         order.TotalPrice -= baseService.Price;
