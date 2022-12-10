@@ -1,7 +1,7 @@
 ﻿namespace WeddingService.Bll.Models.Base;
 
 /// <summary>
-///     Abstract Dto for base service
+///     Dto for base service
 /// </summary>
 public class BaseServiceDto
 {

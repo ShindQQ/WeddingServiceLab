@@ -7,7 +7,7 @@ using WeddingService.Dal.Entities.Base;
 namespace WeddingService.Bll.Services;
 
 /// <summary>
-///     Abstract class for base service
+///     Class for base service
 /// </summary>
 /// <typeparam name="T1">Represents entity</typeparam>
 /// <typeparam name="T2">Represents dto</typeparam>
