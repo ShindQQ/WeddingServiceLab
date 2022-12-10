@@ -3,7 +3,7 @@
 /// <summary>
 ///     Abstract Dto for base service
 /// </summary>
-public abstract class BaseServiceDto
+public class BaseServiceDto
 {
     /// <summary>
     ///     Id of the service

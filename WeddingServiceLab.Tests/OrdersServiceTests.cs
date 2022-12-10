@@ -51,7 +51,7 @@ namespace WeddingServiceLab.Tests
         {
             var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
 
-            var newOrder = _ordersService.AddServiceToOrderAsync(1, new ServiceDto { Id = 1, Name = "car1", Price = 100}).Result;
+            var newOrder = _ordersService.AddServiceToOrderAsync(1, new BaseServiceDto { Id = 1, Name = "car1", Price = 100}).Result;
 
             Assert.Equal(order, newOrder);
         }

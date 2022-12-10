@@ -51,7 +51,7 @@ public sealed class OrdersService : IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="baseServiceDto">Service which will be added</param>
     /// <returns>Order with added service</returns>
-    public async Task<Orders> AddServiceToOrderAsync(long orderId, ServiceDto baseServiceDto)
+    public async Task<Orders> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto)
     {
         var order = await FindAsync(new OrdersDto { Id = orderId });
 
@@ -104,7 +104,7 @@ public sealed class OrdersService : IOrdersService
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Order by id {orderId} wasn`t found.");
         }
 
-        var baseService = await _baseService.FindAsync(new ServiceDto { Id = serviceId });
+        var baseService = await _baseService.FindAsync(new BaseServiceDto { Id = serviceId });
 
         if (baseService == null)
         {

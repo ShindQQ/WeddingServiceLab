@@ -66,7 +66,7 @@ public sealed class OrdersController : ControllerBase
     [HttpPost("AddServiceToOrder")]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> AddServiceToOrderAsync([Required] long orderId, ServiceDto serviceEntity)
+    public async Task<IActionResult> AddServiceToOrderAsync([Required] long orderId, BaseServiceDto serviceEntity)
     {
         var orderCreated = await _ordersService.AddServiceToOrderAsync(orderId, serviceEntity);
 
@@ -120,7 +120,7 @@ public sealed class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> UpdateOrderAsync([Required] long orderId, OrdersDto orderForUpdate)
     {
-        if (!await _ordersService.IsExistAsync(orderForUpdate)) return NotFound();
+        if (!await _ordersService.IsExistAsync(new OrdersDto { Id = orderId })) return NotFound();
 
         var updatedOrder = _mapper.Map<Orders>(orderForUpdate);
         updatedOrder.Id = orderId;

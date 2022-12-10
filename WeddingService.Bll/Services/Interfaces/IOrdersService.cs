@@ -22,7 +22,7 @@ public interface IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="baseServiceDto">Service which will be added</param>
     /// <returns>Order with added service</returns>
-    Task<Orders> AddServiceToOrderAsync(long orderId, ServiceDto baseServiceDto);
+    Task<Orders> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto);
 
     /// <summary>
     ///     Updating order in db
