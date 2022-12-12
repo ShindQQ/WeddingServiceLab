@@ -7,12 +7,12 @@ namespace WeddingService.Bll.Profiles;
 /// <summary>
 ///     Ceremonies Profile for AutoMapper
 /// </summary>
-public sealed class CeremoniesProfile : Profile
+public sealed class CeremonyProfile : Profile
 {
     /// <summary>
     ///     Constructor for profiler
     /// </summary>
-    public CeremoniesProfile()
+    public CeremonyProfile()
     {
         CreateMap<Ceremony, CeremonyDto>().ReverseMap();
         CreateMap<Ceremony, CeremonyDto>();

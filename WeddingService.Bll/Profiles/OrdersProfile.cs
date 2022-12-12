@@ -7,15 +7,15 @@ namespace WeddingService.Bll.Profiles;
 /// <summary>
 ///     Orders Profile for AutoMapper
 /// </summary>
-public sealed class OrdersProfile : Profile
+public sealed class OrderProfile : Profile
 {
     /// <summary>
     ///     Constructor for profiler
     /// </summary>
-    public OrdersProfile()
+    public OrderProfile()
     {
-        CreateMap<Order, OrdesDto>().ReverseMap();
-        CreateMap<Order, OrdesDto>();
-        CreateMap<OrdesDto, Order>();
+        CreateMap<Order, OrderDto>().ReverseMap();
+        CreateMap<Order, OrderDto>();
+        CreateMap<OrderDto, Order>();
     }
 }

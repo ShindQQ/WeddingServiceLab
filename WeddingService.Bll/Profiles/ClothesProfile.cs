@@ -7,12 +7,12 @@ namespace WeddingService.Bll.Profiles;
 /// <summary>
 ///     Clothes Profile for AutoMapper
 /// </summary>
-public sealed class ClothesProfile : Profile
+public sealed class ClothProfile : Profile
 {
     /// <summary>
     ///     Constructor for profiler
     /// </summary>
-    public ClothesProfile()
+    public ClothProfile()
     {
         CreateMap<Cloth, ClothDto>().ReverseMap();
         CreateMap<Cloth, ClothDto>();

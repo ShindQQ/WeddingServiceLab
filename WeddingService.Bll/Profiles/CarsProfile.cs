@@ -7,12 +7,12 @@ namespace WeddingService.Bll.Profiles;
 /// <summary>
 ///     Cars Profile for AutoMapper
 /// </summary>
-public sealed class CarsProfile : Profile
+public sealed class CarProfile : Profile
 {
     /// <summary>
     ///     Constructor for profiler
     /// </summary>
-    public CarsProfile()
+    public CarProfile()
     {
         CreateMap<Car, CarDto>().ReverseMap();
         CreateMap<Car, CarDto>();

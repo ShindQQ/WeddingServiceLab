@@ -50,7 +50,7 @@ public sealed class CeremoniesController : ControllerBase
         var ceremonyCreated = await _ceremoniesService.AddAsync(_mapper.Map<Ceremony>(ceremonyDto));
 
         return CreatedAtRoute("GetCeremony",
-            new { ceremonyCreated.Id, ceremonyCreated.Price, ceremonyCreated.Name, ceremonyCreated.Orders }, 
+            new { ceremonyCreated.Id, ceremonyCreated.Price, ceremonyCreated.Name, ceremonyCreated.Orders },
             ceremonyCreated);
     }
 

@@ -11,8 +11,8 @@ using WeddingService.Dal.Contexts;
 namespace WeddingService.Dal.Migrations
 {
     [DbContext(typeof(WeddingServiceContext))]
-    [Migration("20221105174153_Init")]
-    partial class Init
+    [Migration("20221212214953_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace WeddingService.Dal.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("BaseServiceEntityOrders", b =>
+            modelBuilder.Entity("BaseServiceEntityOrder", b =>
                 {
                     b.Property<long>("OrdersId")
                         .HasColumnType("bigint");
@@ -35,7 +35,7 @@ namespace WeddingService.Dal.Migrations
 
                     b.HasIndex("ServicesId");
 
-                    b.ToTable("BaseServiceEntityOrders");
+                    b.ToTable("BaseServiceEntityOrder");
                 });
 
             modelBuilder.Entity("WeddingService.Dal.Entities.Base.BaseServiceEntity", b =>
@@ -58,7 +58,7 @@ namespace WeddingService.Dal.Migrations
                     b.ToTable("BaseService");
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Orders", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Order", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,30 +74,30 @@ namespace WeddingService.Dal.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Cars", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Car", b =>
                 {
                     b.HasBaseType("WeddingService.Dal.Entities.Base.BaseServiceEntity");
 
                     b.ToTable("Cars");
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Ceremonies", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Ceremony", b =>
                 {
                     b.HasBaseType("WeddingService.Dal.Entities.Base.BaseServiceEntity");
 
                     b.ToTable("Ceremonies");
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Clothes", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Cloth", b =>
                 {
                     b.HasBaseType("WeddingService.Dal.Entities.Base.BaseServiceEntity");
 
                     b.ToTable("Clothes");
                 });
 
-            modelBuilder.Entity("BaseServiceEntityOrders", b =>
+            modelBuilder.Entity("BaseServiceEntityOrder", b =>
                 {
-                    b.HasOne("WeddingService.Dal.Entities.Orders", null)
+                    b.HasOne("WeddingService.Dal.Entities.Order", null)
                         .WithMany()
                         .HasForeignKey("OrdersId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -110,29 +110,29 @@ namespace WeddingService.Dal.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Cars", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Car", b =>
                 {
                     b.HasOne("WeddingService.Dal.Entities.Base.BaseServiceEntity", null)
                         .WithOne()
-                        .HasForeignKey("WeddingService.Dal.Entities.Cars", "Id")
+                        .HasForeignKey("WeddingService.Dal.Entities.Car", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Ceremonies", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Ceremony", b =>
                 {
                     b.HasOne("WeddingService.Dal.Entities.Base.BaseServiceEntity", null)
                         .WithOne()
-                        .HasForeignKey("WeddingService.Dal.Entities.Ceremonies", "Id")
+                        .HasForeignKey("WeddingService.Dal.Entities.Ceremony", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("WeddingService.Dal.Entities.Clothes", b =>
+            modelBuilder.Entity("WeddingService.Dal.Entities.Cloth", b =>
                 {
                     b.HasOne("WeddingService.Dal.Entities.Base.BaseServiceEntity", null)
                         .WithOne()
-                        .HasForeignKey("WeddingService.Dal.Entities.Clothes", "Id")
+                        .HasForeignKey("WeddingService.Dal.Entities.Cloth", "Id")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
                 });

@@ -27,7 +27,7 @@ public sealed class CarsService : BaseService<Car, CarDto>, ICarsService
 	/// <returns>Added entity</returns>
 	public override async Task<Car> AddAsync(Car entity)
     {
-        if (await IsExistAsync(new CarDto { Name = entity.Name, Price = entity.Price}))
+        if (await IsExistAsync(new CarDto { Name = entity.Name, Price = entity.Price }))
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Entity by id {entity.Id} with such data was already added.");
         }

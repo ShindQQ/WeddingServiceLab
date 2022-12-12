@@ -46,7 +46,7 @@ public sealed class OrdersController : ControllerBase
     /// <status code="201">Order is created</status>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddOrderAsync(OrdesDto orderDto)
+    public async Task<IActionResult> AddOrderAsync(OrderDto orderDto)
     {
         var orderCreated = await _ordersService.AddAsync(_mapper.Map<Order>(orderDto));
 
@@ -99,7 +99,7 @@ public sealed class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetOrderAsync([Required] long id)
     {
-        var orderFromRepo = await _ordersService.FindAsync(new OrdesDto { Id = id });
+        var orderFromRepo = await _ordersService.FindAsync(new OrderDto { Id = id });
 
         if (orderFromRepo == null) return NotFound();
 
@@ -118,9 +118,9 @@ public sealed class OrdersController : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateOrderAsync([Required] long orderId, OrdesDto orderForUpdate)
+    public async Task<IActionResult> UpdateOrderAsync([Required] long orderId, OrderDto orderForUpdate)
     {
-        if (!await _ordersService.IsExistAsync(new OrdesDto { Id = orderId })) return NotFound();
+        if (!await _ordersService.IsExistAsync(new OrderDto { Id = orderId })) return NotFound();
 
         var updatedOrder = _mapper.Map<Order>(orderForUpdate);
         updatedOrder.Id = orderId;
@@ -143,7 +143,7 @@ public sealed class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteOrderAsync([Required] long orderId)
     {
-        if (!await _ordersService.IsExistAsync(new OrdesDto { Id = orderId })) return NotFound();
+        if (!await _ordersService.IsExistAsync(new OrderDto { Id = orderId })) return NotFound();
 
         var orderForDelete = new Order { Id = orderId };
         await _ordersService.DeleteAsync(orderForDelete);

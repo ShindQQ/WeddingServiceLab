@@ -3,7 +3,7 @@
 /// <summary>
 ///     Orders Dto
 /// </summary>
-public sealed class OrdesDto
+public sealed class OrderDto
 {
     /// <summary>
     ///     Id of the order

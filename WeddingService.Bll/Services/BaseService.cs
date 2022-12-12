@@ -82,7 +82,7 @@ public class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : BaseServiceEn
 			.Include(e => e.Orders)
 			.Where(filter => !entityDto.Id.HasValue || filter.Id == entityDto.Id)
 			.Where(filter => !entityDto.Price.HasValue || filter.Price == entityDto.Price)
-			.Where(filter => string.IsNullOrEmpty(entityDto.Name) 
+			.Where(filter => string.IsNullOrEmpty(entityDto.Name)
 			|| filter.Name.ToLower().Contains(entityDto.Name.ToLower()))
 			.FirstOrDefaultAsync();
 	}
@@ -98,7 +98,7 @@ public class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : BaseServiceEn
 			.Include(e => e.Orders)
 			.Where(filter => !entityDto.Id.HasValue || filter.Id == entityDto.Id)
 			.Where(filter => !entityDto.Price.HasValue || filter.Price == entityDto.Price)
-			.Where(filter => string.IsNullOrEmpty(entityDto.Name) 
+			.Where(filter => string.IsNullOrEmpty(entityDto.Name)
 			|| filter.Name.ToLower().Contains(entityDto.Name.ToLower()))
 			.AnyAsync();
 	}

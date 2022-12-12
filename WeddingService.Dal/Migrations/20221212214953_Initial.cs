@@ -4,7 +4,7 @@
 
 namespace WeddingService.Dal.Migrations
 {
-    public partial class Init : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -84,7 +84,7 @@ namespace WeddingService.Dal.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BaseServiceEntityOrders",
+                name: "BaseServiceEntityOrder",
                 columns: table => new
                 {
                     OrdersId = table.Column<long>(type: "bigint", nullable: false),
@@ -92,15 +92,15 @@ namespace WeddingService.Dal.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BaseServiceEntityOrders", x => new { x.OrdersId, x.ServicesId });
+                    table.PrimaryKey("PK_BaseServiceEntityOrder", x => new { x.OrdersId, x.ServicesId });
                     table.ForeignKey(
-                        name: "FK_BaseServiceEntityOrders_BaseService_ServicesId",
+                        name: "FK_BaseServiceEntityOrder_BaseService_ServicesId",
                         column: x => x.ServicesId,
                         principalTable: "BaseService",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BaseServiceEntityOrders_Orders_OrdersId",
+                        name: "FK_BaseServiceEntityOrder_Orders_OrdersId",
                         column: x => x.OrdersId,
                         principalTable: "Orders",
                         principalColumn: "Id",
@@ -108,15 +108,15 @@ namespace WeddingService.Dal.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseServiceEntityOrders_ServicesId",
-                table: "BaseServiceEntityOrders",
+                name: "IX_BaseServiceEntityOrder_ServicesId",
+                table: "BaseServiceEntityOrder",
                 column: "ServicesId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BaseServiceEntityOrders");
+                name: "BaseServiceEntityOrder");
 
             migrationBuilder.DropTable(
                 name: "Cars");

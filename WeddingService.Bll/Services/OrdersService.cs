@@ -53,7 +53,7 @@ public sealed class OrdersService : IOrdersService
     /// <returns>Order with added service</returns>
     public async Task<Order> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto)
     {
-        var order = await FindAsync(new OrdesDto { Id = orderId });
+        var order = await FindAsync(new OrderDto { Id = orderId });
 
         if (order == null)
         {
@@ -66,7 +66,7 @@ public sealed class OrdersService : IOrdersService
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {baseServiceDto.Id} wasn`t found.");
         }
-        else if(order.Services.Contains(baseService))
+        else if (order.Services.Contains(baseService))
         {
             throw new HttpStatusCodeException(HttpStatusCode.BadRequest, $"Base entity by id {baseServiceDto.Id} already added.");
         }
@@ -97,7 +97,7 @@ public sealed class OrdersService : IOrdersService
     /// <returns>Order with removed service</returns>
     public async Task<Order> DeleteServiceFromOrderAsync(long orderId, long serviceId)
     {
-        var order = await FindAsync(new OrdesDto { Id = orderId });
+        var order = await FindAsync(new OrderDto { Id = orderId });
 
         if (order == null)
         {
@@ -110,7 +110,7 @@ public sealed class OrdersService : IOrdersService
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found.");
         }
-        else if(!order.Services.Contains(baseService))
+        else if (!order.Services.Contains(baseService))
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Base entity by id {serviceId} wasn`t found in order by id {orderId}.");
         }
@@ -127,7 +127,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with needed params</param>
     /// <returns>Found order or null if it doesn`t exist</returns>
-    public async Task<Order?> FindAsync(OrdesDto entityDto)
+    public async Task<Order?> FindAsync(OrderDto entityDto)
     {
         return await Context.Orders
             .Include(e => e.Services)
@@ -162,7 +162,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    public async Task<bool> IsExistAsync(OrdesDto entityDto)
+    public async Task<bool> IsExistAsync(OrderDto entityDto)
     {
         return await Context.Orders
             .Include(e => e.Services)

@@ -58,12 +58,12 @@ public interface IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with needed params</param>
     /// <returns>Found order or null if it doesn`t exist</returns>
-    Task<Order?> FindAsync(OrdesDto entityDto);
+    Task<Order?> FindAsync(OrderDto entityDto);
 
     /// <summary>
     ///     Checking is there such order in db
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    Task<bool> IsExistAsync(OrdesDto entityDto);
+    Task<bool> IsExistAsync(OrderDto entityDto);
 }
