@@ -31,5 +31,5 @@ public abstract class BaseServiceEntity
     /// <summary>
     ///     Orders in which this service exists
     /// </summary>
-    public List<Orders> Orders { get; set; } = new();
+    public List<Order> Orders { get; set; } = new();
 }

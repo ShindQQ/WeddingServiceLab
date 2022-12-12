@@ -46,9 +46,9 @@ public sealed class OrdersController : ControllerBase
     /// <status code="201">Order is created</status>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddOrderAsync(OrdersDto orderDto)
+    public async Task<IActionResult> AddOrderAsync(OrdesDto orderDto)
     {
-        var orderCreated = await _ordersService.AddAsync(_mapper.Map<Orders>(orderDto));
+        var orderCreated = await _ordersService.AddAsync(_mapper.Map<Order>(orderDto));
 
         return CreatedAtRoute("GetOrder",
             new { orderCreated.Id, orderCreated.TotalPrice, orderCreated.Services }, orderCreated);
@@ -99,7 +99,7 @@ public sealed class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetOrderAsync([Required] long id)
     {
-        var orderFromRepo = await _ordersService.FindAsync(new OrdersDto { Id = id });
+        var orderFromRepo = await _ordersService.FindAsync(new OrdesDto { Id = id });
 
         if (orderFromRepo == null) return NotFound();
 
@@ -118,11 +118,11 @@ public sealed class OrdersController : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateOrderAsync([Required] long orderId, OrdersDto orderForUpdate)
+    public async Task<IActionResult> UpdateOrderAsync([Required] long orderId, OrdesDto orderForUpdate)
     {
-        if (!await _ordersService.IsExistAsync(new OrdersDto { Id = orderId })) return NotFound();
+        if (!await _ordersService.IsExistAsync(new OrdesDto { Id = orderId })) return NotFound();
 
-        var updatedOrder = _mapper.Map<Orders>(orderForUpdate);
+        var updatedOrder = _mapper.Map<Order>(orderForUpdate);
         updatedOrder.Id = orderId;
 
         await _ordersService.UpdateAsync(updatedOrder);
@@ -143,9 +143,9 @@ public sealed class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteOrderAsync([Required] long orderId)
     {
-        if (!await _ordersService.IsExistAsync(new OrdersDto { Id = orderId })) return NotFound();
+        if (!await _ordersService.IsExistAsync(new OrdesDto { Id = orderId })) return NotFound();
 
-        var orderForDelete = new Orders { Id = orderId };
+        var orderForDelete = new Order { Id = orderId };
         await _ordersService.DeleteAsync(orderForDelete);
 
         return Ok(orderForDelete);

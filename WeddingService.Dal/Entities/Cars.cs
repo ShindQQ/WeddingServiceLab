@@ -7,6 +7,6 @@ namespace WeddingService.Dal.Entities;
 ///     Cars service
 /// </summary>
 [Table("Cars")]
-public sealed class Cars : BaseServiceEntity
+public sealed class Car : BaseServiceEntity
 {
 }

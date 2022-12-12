@@ -5,6 +5,6 @@ namespace WeddingService.Bll.Models;
 /// <summary>
 ///     Cars Dto
 /// </summary>
-public sealed class CarsDto : BaseServiceDto
+public sealed class CarDto : BaseServiceDto
 {
 }

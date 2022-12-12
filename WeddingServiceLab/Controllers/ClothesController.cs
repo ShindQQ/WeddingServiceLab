@@ -45,9 +45,9 @@ public sealed class ClothesController : ControllerBase
     /// <status code="201">Cloth is created</status>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddClothAsync(ClothesDto clothesDto)
+    public async Task<IActionResult> AddClothAsync(ClothDto clothesDto)
     {
-        var clothCreated = await _clothesService.AddAsync(_mapper.Map<Clothes>(clothesDto));
+        var clothCreated = await _clothesService.AddAsync(_mapper.Map<Cloth>(clothesDto));
 
         return CreatedAtRoute("GetCloth",
             new { clothCreated.Id, clothCreated.Price, clothCreated.Name, clothCreated.Orders }, clothCreated);
@@ -63,7 +63,7 @@ public sealed class ClothesController : ControllerBase
     {
         var clothesFromRepo = await _clothesService.GetAsync();
 
-        return Ok(_mapper.Map<IEnumerable<ClothesDto>>(clothesFromRepo));
+        return Ok(_mapper.Map<IEnumerable<ClothDto>>(clothesFromRepo));
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public sealed class ClothesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetClothAsync([Required] long id)
     {
-        var clothesFromRepo = await _clothesService.FindAsync(new ClothesDto { Id = id });
+        var clothesFromRepo = await _clothesService.FindAsync(new ClothDto { Id = id });
 
         if (clothesFromRepo == null) return NotFound();
 
@@ -96,11 +96,11 @@ public sealed class ClothesController : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateClothAsync([Required] long clothId, ClothesDto clothForUpdate)
+    public async Task<IActionResult> UpdateClothAsync([Required] long clothId, ClothDto clothForUpdate)
     {
-        if (!await _clothesService.IsExistAsync(new ClothesDto { Id = clothId })) return NotFound();
+        if (!await _clothesService.IsExistAsync(new ClothDto { Id = clothId })) return NotFound();
 
-        var updatedCloth = _mapper.Map<Clothes>(clothForUpdate);
+        var updatedCloth = _mapper.Map<Cloth>(clothForUpdate);
         updatedCloth.Id = clothId;
 
         await _clothesService.UpdateAsync(updatedCloth);
@@ -121,9 +121,9 @@ public sealed class ClothesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteClothAsync([Required] long clothId)
     {
-        if (!await _clothesService.IsExistAsync(new ClothesDto { Id = clothId })) return NotFound();
+        if (!await _clothesService.IsExistAsync(new ClothDto { Id = clothId })) return NotFound();
 
-        var clothForDelete = new Clothes { Id = clothId };
+        var clothForDelete = new Cloth { Id = clothId };
         await _clothesService.DeleteAsync(clothForDelete);
 
         return Ok(clothForDelete);

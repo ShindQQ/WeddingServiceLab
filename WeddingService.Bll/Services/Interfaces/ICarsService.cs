@@ -6,6 +6,6 @@ namespace WeddingService.Bll.Services.Interfaces;
 /// <summary>
 ///     Interface for cars service
 /// </summary>
-public interface ICarsService : IBaseService<Cars, CarsDto>
+public interface ICarsService : IBaseService<Car, CarDto>
 {
 }

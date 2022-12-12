@@ -14,8 +14,8 @@ public sealed class ClothesProfile : Profile
     /// </summary>
     public ClothesProfile()
     {
-        CreateMap<Clothes, ClothesDto>().ReverseMap();
-        CreateMap<Clothes, ClothesDto>();
-        CreateMap<ClothesDto, Clothes>();
+        CreateMap<Cloth, ClothDto>().ReverseMap();
+        CreateMap<Cloth, ClothDto>();
+        CreateMap<ClothDto, Cloth>();
     }
 }

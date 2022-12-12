@@ -14,8 +14,8 @@ public sealed class CeremoniesProfile : Profile
     /// </summary>
     public CeremoniesProfile()
     {
-        CreateMap<Ceremonies, CeremoniesDto>().ReverseMap();
-        CreateMap<Ceremonies, CeremoniesDto>();
-        CreateMap<CeremoniesDto, Ceremonies>();
+        CreateMap<Ceremony, CeremonyDto>().ReverseMap();
+        CreateMap<Ceremony, CeremonyDto>();
+        CreateMap<CeremonyDto, Ceremony>();
     }
 }

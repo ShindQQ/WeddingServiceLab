@@ -25,21 +25,21 @@ public sealed class WeddingServiceContext : DbContext
     /// <summary>
     ///		DbSet for cars service
     /// </summary>
-    public DbSet<Cars> Cars { get; set; } = null!;
+    public DbSet<Car> Cars { get; set; } = null!;
 
     /// <summary>
     ///		DbSet for ceremonies service
     /// </summary>
-    public DbSet<Ceremonies> Ceremonies { get; set; } = null!;
+    public DbSet<Ceremony> Ceremonies { get; set; } = null!;
 
     /// <summary>
     ///		DbSet for clothes service
     /// </summary>
-    public DbSet<Clothes> Clothes { get; set; } = null!;
+    public DbSet<Cloth> Clothes { get; set; } = null!;
 
 
     /// <summary>
     ///		DbSet for orders service
     /// </summary>
-    public DbSet<Orders> Orders { get; set; } = null!;
+    public DbSet<Order> Orders { get; set; } = null!;
 }

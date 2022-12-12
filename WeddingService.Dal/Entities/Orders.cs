@@ -8,7 +8,7 @@ namespace WeddingService.Dal.Entities;
 ///     Orders table
 /// </summary>
 [Table("Orders")]
-public sealed class Orders
+public sealed class Order
 {
     /// <summary>
     ///     Id of the order

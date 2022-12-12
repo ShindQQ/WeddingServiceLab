@@ -10,7 +10,7 @@ namespace WeddingService.Bll.Services;
 /// <summary>
 ///     Class for cars service
 /// </summary>
-public sealed class CarsService : BaseService<Cars, CarsDto>, ICarsService
+public sealed class CarsService : BaseService<Car, CarDto>, ICarsService
 {
     /// <summary>
     ///     Constructor for cars service
@@ -25,9 +25,9 @@ public sealed class CarsService : BaseService<Cars, CarsDto>, ICarsService
 	/// </summary>
 	/// <param name="entity">Entity which will be added</param>
 	/// <returns>Added entity</returns>
-	public override async Task<Cars> AddAsync(Cars entity)
+	public override async Task<Car> AddAsync(Car entity)
     {
-        if (await IsExistAsync(new CarsDto { Name = entity.Name, Price = entity.Price}))
+        if (await IsExistAsync(new CarDto { Name = entity.Name, Price = entity.Price}))
         {
             throw new HttpStatusCodeException(HttpStatusCode.NotFound, $"Entity by id {entity.Id} with such data was already added.");
         }

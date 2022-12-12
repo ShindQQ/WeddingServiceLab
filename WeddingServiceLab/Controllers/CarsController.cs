@@ -45,9 +45,9 @@ public sealed class CarsController : ControllerBase
     /// <status code="201">Car is created</status>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddCarAsync(CarsDto carDto)
+    public async Task<IActionResult> AddCarAsync(CarDto carDto)
     {
-        var carCreated = await _carsService.AddAsync(_mapper.Map<Cars>(carDto));
+        var carCreated = await _carsService.AddAsync(_mapper.Map<Car>(carDto));
 
         return CreatedAtRoute("GetCar",
             new { carCreated.Id, carCreated.Price, carCreated.Name, carCreated.Orders }, carCreated);
@@ -63,7 +63,7 @@ public sealed class CarsController : ControllerBase
     {
         var carsFromRepo = await _carsService.GetAsync();
 
-        return Ok(_mapper.Map<IEnumerable<CarsDto>>(carsFromRepo));
+        return Ok(_mapper.Map<IEnumerable<CarDto>>(carsFromRepo));
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public sealed class CarsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCarAsync([Required] long id)
     {
-        var carFromRepo = await _carsService.FindAsync(new CarsDto { Id = id });
+        var carFromRepo = await _carsService.FindAsync(new CarDto { Id = id });
 
         if (carFromRepo == null) return NotFound();
 
@@ -96,11 +96,11 @@ public sealed class CarsController : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateCarAsync([Required] long carId, CarsDto carForUpdate)
+    public async Task<IActionResult> UpdateCarAsync([Required] long carId, CarDto carForUpdate)
     {
-        if (!await _carsService.IsExistAsync(new CarsDto { Id = carId })) return NotFound();
+        if (!await _carsService.IsExistAsync(new CarDto { Id = carId })) return NotFound();
 
-        var updatedCar = _mapper.Map<Cars>(carForUpdate);
+        var updatedCar = _mapper.Map<Car>(carForUpdate);
         updatedCar.Id = carId;
 
         await _carsService.UpdateAsync(updatedCar);
@@ -121,9 +121,9 @@ public sealed class CarsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteCarAsync([Required] long carId)
     {
-        if (!await _carsService.IsExistAsync(new CarsDto { Id = carId })) return NotFound();
+        if (!await _carsService.IsExistAsync(new CarDto { Id = carId })) return NotFound();
 
-        var carForDelete = new Cars { Id = carId };
+        var carForDelete = new Car { Id = carId };
         await _carsService.DeleteAsync(carForDelete);
 
         return Ok(carForDelete);

@@ -6,6 +6,6 @@ namespace WeddingService.Bll.Services.Interfaces;
 /// <summary>
 ///     Interface for clothes service
 /// </summary>
-public interface IClothesService : IBaseService<Clothes, ClothesDto>
+public interface IClothesService : IBaseService<Cloth, ClothDto>
 {
 }

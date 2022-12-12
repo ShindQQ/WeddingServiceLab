@@ -37,7 +37,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entity">Order which will be added</param>
     /// <returns>Added order</returns>
-    public async Task<Orders> AddAsync(Orders entity)
+    public async Task<Order> AddAsync(Order entity)
     {
         await Context.Orders.AddAsync(entity);
         await Context.SaveChangesAsync();
@@ -51,9 +51,9 @@ public sealed class OrdersService : IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="baseServiceDto">Service which will be added</param>
     /// <returns>Order with added service</returns>
-    public async Task<Orders> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto)
+    public async Task<Order> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto)
     {
-        var order = await FindAsync(new OrdersDto { Id = orderId });
+        var order = await FindAsync(new OrdesDto { Id = orderId });
 
         if (order == null)
         {
@@ -83,7 +83,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entity">Order for delete</param>
     /// <returns>Task</returns>
-    public async Task DeleteAsync(Orders entity)
+    public async Task DeleteAsync(Order entity)
     {
         Context.Orders.Remove(entity);
         await Context.SaveChangesAsync();
@@ -95,9 +95,9 @@ public sealed class OrdersService : IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="serviceId">Id of the service in order for delete</param>
     /// <returns>Order with removed service</returns>
-    public async Task<Orders> DeleteServiceFromOrderAsync(long orderId, long serviceId)
+    public async Task<Order> DeleteServiceFromOrderAsync(long orderId, long serviceId)
     {
-        var order = await FindAsync(new OrdersDto { Id = orderId });
+        var order = await FindAsync(new OrdesDto { Id = orderId });
 
         if (order == null)
         {
@@ -127,7 +127,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with needed params</param>
     /// <returns>Found order or null if it doesn`t exist</returns>
-    public async Task<Orders?> FindAsync(OrdersDto entityDto)
+    public async Task<Order?> FindAsync(OrdesDto entityDto)
     {
         return await Context.Orders
             .Include(e => e.Services)
@@ -141,7 +141,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="orderByDescending">Ordering by descending</param>
     /// <returns>IEnumerable of Orders</returns>
-    public async Task<IEnumerable<Orders>> GetAsync(bool orderByDescending)
+    public async Task<IEnumerable<Order>> GetAsync(bool orderByDescending)
     {
         var orders = Context.Orders.AsQueryable();
 
@@ -162,7 +162,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    public async Task<bool> IsExistAsync(OrdersDto entityDto)
+    public async Task<bool> IsExistAsync(OrdesDto entityDto)
     {
         return await Context.Orders
             .Include(e => e.Services)
@@ -176,7 +176,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entity">Order which will be updated</param>
     /// <returns>Task</returns>
-    public async Task UpdateAsync(Orders entity)
+    public async Task UpdateAsync(Order entity)
     {
         Context.Orders.Update(entity);
         await Context.SaveChangesAsync();

@@ -45,9 +45,9 @@ public sealed class CeremoniesController : ControllerBase
     /// <status code="201">Ceremony is created</status>
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddCeremonyAsync(CeremoniesDto ceremonyDto)
+    public async Task<IActionResult> AddCeremonyAsync(CeremonyDto ceremonyDto)
     {
-        var ceremonyCreated = await _ceremoniesService.AddAsync(_mapper.Map<Ceremonies>(ceremonyDto));
+        var ceremonyCreated = await _ceremoniesService.AddAsync(_mapper.Map<Ceremony>(ceremonyDto));
 
         return CreatedAtRoute("GetCeremony",
             new { ceremonyCreated.Id, ceremonyCreated.Price, ceremonyCreated.Name, ceremonyCreated.Orders }, 
@@ -64,7 +64,7 @@ public sealed class CeremoniesController : ControllerBase
     {
         var ceremoniesFromRepo = await _ceremoniesService.GetAsync();
 
-        return Ok(_mapper.Map<IEnumerable<CeremoniesDto>>(ceremoniesFromRepo));
+        return Ok(_mapper.Map<IEnumerable<CeremonyDto>>(ceremoniesFromRepo));
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public sealed class CeremoniesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetCeremonyAsync([Required] long id)
     {
-        var ceremonyFromRepo = await _ceremoniesService.FindAsync(new CeremoniesDto { Id = id });
+        var ceremonyFromRepo = await _ceremoniesService.FindAsync(new CeremonyDto { Id = id });
 
         if (ceremonyFromRepo == null) return NotFound();
 
@@ -97,11 +97,11 @@ public sealed class CeremoniesController : ControllerBase
     [HttpPut]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> UpdateCeremonyAsync([Required] long ceremonyId, CeremoniesDto ceremonyForUpdate)
+    public async Task<IActionResult> UpdateCeremonyAsync([Required] long ceremonyId, CeremonyDto ceremonyForUpdate)
     {
-        if (!await _ceremoniesService.IsExistAsync(new CeremoniesDto { Id = ceremonyId })) return NotFound();
+        if (!await _ceremoniesService.IsExistAsync(new CeremonyDto { Id = ceremonyId })) return NotFound();
 
-        var updatedCeremony = _mapper.Map<Ceremonies>(ceremonyForUpdate);
+        var updatedCeremony = _mapper.Map<Ceremony>(ceremonyForUpdate);
         updatedCeremony.Id = ceremonyId;
 
         await _ceremoniesService.UpdateAsync(updatedCeremony);
@@ -122,9 +122,9 @@ public sealed class CeremoniesController : ControllerBase
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> DeleteCeremonyAsync([Required] long ceremonyId)
     {
-        if (!await _ceremoniesService.IsExistAsync(new CeremoniesDto { Id = ceremonyId })) return NotFound();
+        if (!await _ceremoniesService.IsExistAsync(new CeremonyDto { Id = ceremonyId })) return NotFound();
 
-        var ceremonyForDelete = new Ceremonies { Id = ceremonyId };
+        var ceremonyForDelete = new Ceremony { Id = ceremonyId };
         await _ceremoniesService.DeleteAsync(ceremonyForDelete);
 
         return Ok(ceremonyForDelete);

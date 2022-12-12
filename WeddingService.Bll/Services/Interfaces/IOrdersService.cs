@@ -14,7 +14,7 @@ public interface IOrdersService
     /// </summary>
     /// <param name="entity">Order which will be added</param>
     /// <returns>Added order</returns>
-    Task<Orders> AddAsync(Orders entity);
+    Task<Order> AddAsync(Order entity);
 
     /// <summary>
     ///     Adding service to order
@@ -22,21 +22,21 @@ public interface IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="baseServiceDto">Service which will be added</param>
     /// <returns>Order with added service</returns>
-    Task<Orders> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto);
+    Task<Order> AddServiceToOrderAsync(long orderId, BaseServiceDto baseServiceDto);
 
     /// <summary>
     ///     Updating order in db
     /// </summary>
     /// <param name="entity">Order which will be updated</param>
     /// <returns>Task</returns>
-    Task UpdateAsync(Orders entity);
+    Task UpdateAsync(Order entity);
 
     /// <summary>
     ///     Removing order from db
     /// </summary>
     /// <param name="entity">Order for delete</param>
     /// <returns>Task</returns>
-    Task DeleteAsync(Orders entity);
+    Task DeleteAsync(Order entity);
 
     /// <summary>
     ///     Removing service from order
@@ -44,26 +44,26 @@ public interface IOrdersService
     /// <param name="orderId">Id of the order</param>
     /// <param name="serviceId">Id of the service in order for delete</param>
     /// <returns>Order with removed service</returns>
-    Task<Orders> DeleteServiceFromOrderAsync(long orderId, long serviceId);
+    Task<Order> DeleteServiceFromOrderAsync(long orderId, long serviceId);
 
     /// <summary>
     ///     Receiving all orders from db
     /// </summary>
     /// <param name="orderByDescending">Ordering by descending</param>
     /// <returns>IEnumerable of Orders</returns>
-    Task<IEnumerable<Orders>> GetAsync(bool orderByDescending);
+    Task<IEnumerable<Order>> GetAsync(bool orderByDescending);
 
     /// <summary>
     ///     Searching for Order by filter
     /// </summary>
     /// <param name="entityDto">Order with needed params</param>
     /// <returns>Found order or null if it doesn`t exist</returns>
-    Task<Orders?> FindAsync(OrdersDto entityDto);
+    Task<Order?> FindAsync(OrdesDto entityDto);
 
     /// <summary>
     ///     Checking is there such order in db
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    Task<bool> IsExistAsync(OrdersDto entityDto);
+    Task<bool> IsExistAsync(OrdesDto entityDto);
 }

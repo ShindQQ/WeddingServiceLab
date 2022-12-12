@@ -14,8 +14,8 @@ public sealed class OrdersProfile : Profile
     /// </summary>
     public OrdersProfile()
     {
-        CreateMap<Orders, OrdersDto>().ReverseMap();
-        CreateMap<Orders, OrdersDto>();
-        CreateMap<OrdersDto, Orders>();
+        CreateMap<Order, OrdesDto>().ReverseMap();
+        CreateMap<Order, OrdesDto>();
+        CreateMap<OrdesDto, Order>();
     }
 }
