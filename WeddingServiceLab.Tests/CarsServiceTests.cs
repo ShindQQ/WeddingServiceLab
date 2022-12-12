@@ -37,60 +37,60 @@ namespace WeddingServiceLab.Tests
         }
 
         [Fact]
-        public void AddAsync_AddedCar_ReturnedSameCar()
+        public async void AddAsync_AddedCar_ReturnedSameCar()
         {
-            var car = new Cars() { Name = "Car1", Price = 10000 };
-            var AddedCar = _carsService.AddAsync(car).Result;
+            var car = new Car() { Name = "Car1", Price = 10000 };
+            var AddedCar = await _carsService.AddAsync(car);
 
             Assert.Equal(car, AddedCar);
         }
 
         [Fact]
-        public void UpdateAsync_UpdateCar_UpdatedCarInDB()
+        public async void UpdateAsync_UpdateCar_UpdatedCarInDB()
         {
-            var car = _carsService.FindAsync(new CarsDto { Id = 1 }).Result;
+            var car = await _carsService.FindAsync(new CarDto { Id = 1 });
 
             car.Name = "UpdatedCar";
 
-            _carsService.UpdateAsync(car);
+            await _carsService.UpdateAsync(car);
 
-            var newCar = _carsService.FindAsync(new CarsDto { Id = 1 }).Result;
+            var newCar = await _carsService.FindAsync(new CarDto { Id = 1 });
 
             Assert.Equal(car, newCar);
         }
 
         [Fact]
-        public void DeleteAsync_DeleteCar_DeletedCarInDB()
+        public async void DeleteAsync_DeleteCar_DeletedCarInDB()
         {
-            var car = _carsService.FindAsync(new CarsDto { Id = 1 }).Result;
+            var car = await _carsService.FindAsync(new CarDto { Id = 1 });
 
-            _carsService.DeleteAsync(car);
+            await _carsService.DeleteAsync(car);
 
-            var notDeleted = _carsService.IsExistAsync(new CarsDto { Id = 1 }).Result;
+            var notDeleted = await _carsService.IsExistAsync(new CarDto { Id = 1 });
             Assert.False(notDeleted);
         }
 
         [Fact]
-        public void FindAsync_FindCar_CarHasId1()
+        public async void FindAsync_FindCar_CarHasId1()
         {
             int ID = 1;
-            var car = _carsService.FindAsync(new CarsDto { Id = 1 }).Result;
+            var car = await _carsService.FindAsync(new CarDto { Id = 1 });
 
             Assert.Equal(car.Id, ID);
         }
 
         [Fact]
-        public void IsExistAsync_CheckCar_ExistCarId1()
+        public async void IsExistAsync_CheckCar_ExistCarId1()
         {
-            var exist = _carsService.IsExistAsync(new CarsDto { Id = 1 }).Result;
+            var exist = await _carsService.IsExistAsync(new CarDto { Id = 1 });
 
             Assert.True(exist);
         }
 
         [Fact]
-        public void GetAsync_GetList_NotEmptyList()
+        public async void GetAsync_GetList_NotEmptyList()
         {
-            var list = _carsService.GetAsync().Result;
+            var list = await _carsService.GetAsync();
 
             Assert.NotEmpty(list);
         }

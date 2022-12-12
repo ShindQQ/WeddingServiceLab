@@ -38,61 +38,62 @@ namespace WeddingServiceLab.Tests
         }
 
         [Fact]
-        public void AddAsync_AddedCeremony_ReturnedSameCeremony()
+        public async void AddAsync_AddedCeremony_ReturnedSameCeremony()
         {
-            var ceremony = new Ceremonies() { Name = "Ceremony1", Price = 100 };
-            var AddedCeremony = _ceremoniesService.AddAsync(ceremony).Result;
+            var ceremony = new Ceremony() { Name = "Ceremony1", Price = 100 };
+
+            var AddedCeremony = await _ceremoniesService.AddAsync(ceremony);
 
             Assert.Equal(ceremony, AddedCeremony);
         }
 
         [Fact]
-        public void UpdateAsync_UpdateCeremony_UpdatedCeremonyInDB()
+        public async void UpdateAsync_UpdateCeremony_UpdatedCeremonyInDB()
         {
-            var ceremony = _ceremoniesService.FindAsync(new CeremoniesDto { Id = 1 }).Result;
+            var ceremony = await _ceremoniesService.FindAsync(new CeremonyDto { Id = 2 });
 
             ceremony.Name = "UpdatedCeremony";
 
-            _ceremoniesService.UpdateAsync(ceremony);
+            await _ceremoniesService.UpdateAsync(ceremony);
 
-            var newCeremony = _ceremoniesService.FindAsync(new CeremoniesDto { Id = 1 }).Result;
+            var newCeremony = await _ceremoniesService.FindAsync(new CeremonyDto { Id = 2 });
 
             Assert.Equal(ceremony, newCeremony);
         }
 
         [Fact]
-        public void DeleteAsync_DeleteCeremony_DeletedCeremonyInDB()
+        public async void DeleteAsync_DeleteCeremony_DeletedCeremonyInDB()
         {
-            var ceremony = _ceremoniesService.FindAsync(new CeremoniesDto { Id = 1 }).Result;
+            var ceremony = await _ceremoniesService.FindAsync(new CeremonyDto { Id = 2 });
 
-            _ceremoniesService.DeleteAsync(ceremony);
+            await _ceremoniesService.DeleteAsync(ceremony);
 
-            var notDeleted = _ceremoniesService.IsExistAsync(new CeremoniesDto { Id = 1 }).Result;
+            var notDeleted = await _ceremoniesService.IsExistAsync(new CeremonyDto { Id = 2 });
             Assert.False(notDeleted);
         }
 
         [Fact]
-        public void FindAsync_FindCeremony_CeremonyHasId1()
+        public async void FindAsync_FindCeremony_CeremonyHasId2()
         {
-            int ID = 1;
+            int ID = 2;
 
-            var ceremony = _ceremoniesService.FindAsync(new CeremoniesDto { Id = 1 }).Result;
+            var ceremony = await _ceremoniesService.FindAsync(new CeremonyDto { Id = 2 });
 
             Assert.Equal(ceremony.Id, ID);
         }
 
         [Fact]
-        public void IsExistAsync_CheckCeremony_ExistCeremonyId1()
+        public async void IsExistAsync_CheckCeremony_ExistCeremonyId2()
         {
-            var exist = _ceremoniesService.IsExistAsync(new CeremoniesDto { Id = 1 }).Result;
+            var exist = await _ceremoniesService.IsExistAsync(new CeremonyDto { Id = 2 });
 
             Assert.True(exist);
         }
 
         [Fact]
-        public void GetAsync_GetList_NotEmptyList()
+        public async void GetAsync_GetList_NotEmptyList()
         {
-            var list = _ceremoniesService.GetAsync().Result;
+            var list = await _ceremoniesService.GetAsync();
 
             Assert.NotEmpty(list);
         }

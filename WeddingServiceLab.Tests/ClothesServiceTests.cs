@@ -5,6 +5,7 @@ using WeddingService.Bll.Models;
 using WeddingService.Bll.Services;
 using WeddingService.Bll.Services.Interfaces;
 using WeddingService.Dal.Contexts;
+using WeddingService.Dal.Entities;
 using Xunit;
 
 namespace WeddingServiceLab.Tests
@@ -36,51 +37,60 @@ namespace WeddingServiceLab.Tests
         }
 
         [Fact]
-        public void UpdateAsync_UpdateClothes_UpdatedClothesInDB()
+        public async void AddAsync_AddedClothes_ReturnedSameCloth()
         {
-            var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
+            var cloth = new Cloth() { Name = "Cloth1", Price = 200 };
+            var AddedCloth = await _clothesService.AddAsync(cloth);
+
+            Assert.Equal(cloth, AddedCloth);
+        }
+
+        [Fact]
+        public async void UpdateAsync_UpdateClothes_UpdatedClothesInDB()
+        {
+            var clothes = await _clothesService.FindAsync(new ClothDto { Id = 3 });
 
             clothes.Name = "UpdatedClothes";
 
-            _clothesService.UpdateAsync(clothes);
+            await _clothesService.UpdateAsync(clothes);
 
-            var newClothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
+            var newClothes = await _clothesService.FindAsync(new ClothDto { Id = 3 });
 
             Assert.Equal(clothes, newClothes);
         }
 
         [Fact]
-        public void DeleteAsync_DeleteClothes_DeletedClothesInDB()
+        public async void DeleteAsync_DeleteClothes_DeletedClothesInDB()
         {
-            var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
+            var clothes = await _clothesService.FindAsync(new ClothDto { Id = 3 });
 
-            _clothesService.DeleteAsync(clothes);
+            await _clothesService.DeleteAsync(clothes);
 
-            var notDeleted = _clothesService.IsExistAsync(new ClothesDto { Id = 1 }).Result;
+            var notDeleted = await _clothesService.IsExistAsync(new ClothDto { Id = 3 });
             Assert.False(notDeleted);
         }
 
         [Fact]
-        public void FindAsync_FindClothes_ClothesHasId1()
+        public async void FindAsync_FindClothes_ClothesHasId3()
         {
-            int ID = 1;
-            var clothes = _clothesService.FindAsync(new ClothesDto { Id = 1 }).Result;
+            int ID = 3;
+            var clothes = await _clothesService.FindAsync(new ClothDto { Id = 3 });
 
             Assert.Equal(clothes.Id, ID);
         }
 
         [Fact]
-        public void IsExistAsync_CheckClothes_ExistClothesId1()
+        public async void IsExistAsync_CheckClothes_ExistClothesId3()
         {
-            var exist = _clothesService.IsExistAsync(new ClothesDto { Id = 1 }).Result;
+            var exist = await _clothesService.IsExistAsync(new ClothDto { Id = 3 });
 
             Assert.True(exist);
         }
 
         [Fact]
-        public void GetAsync_GetList_NotEmprtyList()
+        public async void GetAsync_GetList_NotEmptyList()
         {
-            var list = _clothesService.GetAsync().Result;
+            var list = await _clothesService.GetAsync();
 
             Assert.NotEmpty(list);
         }

@@ -38,77 +38,80 @@ namespace WeddingServiceLab.Tests
         }
 
         [Fact]
-        public void AddAsync_AddedOrder_ReturnedSameOrder()
+        public async  void AddAsync_AddedOrder_ReturnedSameOrder()
         {
-            var order = new Orders { TotalPrice = 0 };
-            var AddedOrder = _ordersService.AddAsync(order).Result;
+            var order = new Order { TotalPrice = 0 };
+            var AddedOrder = await _ordersService.AddAsync(order);
 
             Assert.Equal(order, AddedOrder);
         }
 
         [Fact]
-        public void AddServiceToOrderAsync_AddService_ReturnedOrder()
+        public async void AddServiceToOrderAsync_AddService_ReturnedOrder()
         {
-            var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
+            var order = new Order { Id = 1, TotalPrice = 10000 };
+            order.Services.Add(new Car { Id = 1, Name = "Car1", Price = 10000 });
 
-            var newOrder = _ordersService.AddServiceToOrderAsync(1, new BaseServiceDto { Id = 1, Name = "car1", Price = 100}).Result;
+            var newOrder = await _ordersService.AddServiceToOrderAsync(1, new BaseServiceDto { Id = 1, Name = "Car1", Price = 10000 });
 
             Assert.Equal(order, newOrder);
         }
 
         [Fact]
-        public void DeleteAsync_DeleteOrder_DeletedOrderInDB()
+        public async void DeleteAsync_DeleteOrder_DeletedOrderInDB()
         {
-            var order = new Orders() { Id = 1 };
-            _ordersService.DeleteAsync(order);
-            var exist = _ordersService.IsExistAsync(new OrdersDto { Id = 1 }).Result;
+            await _ordersService.DeleteAsync(new Order() { Id = 1 });
+
+            var exist = await _ordersService.IsExistAsync(new OrderDto { Id = 1 });
+
             Assert.False(exist);
         }
 
         [Fact]
-        public void DeleteServiceFromOrderAsync_DeleteServiceFromOrder_DeletedServiceInDB()
+        public async void DeleteServiceFromOrderAsync_DeleteServiceFromOrder_DeletedServiceInDB()
         {
-            var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
-            var orderDeleted = _ordersService.DeleteServiceFromOrderAsync(1, 1).Result;
+            var order = await _ordersService.FindAsync(new OrderDto { Id = 1 });
+
+            var orderDeleted = await _ordersService.DeleteServiceFromOrderAsync(1, 1);
 
             Assert.NotEqual(order.Services, orderDeleted.Services);
         }
 
         [Fact]
-        public void FindAsync_FindOrder_FoundOrderId1()
+        public async void FindAsync_FindOrder_FoundOrderId1()
         {
             int ID = 1;
-            var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
+            var order = await _ordersService.FindAsync(new OrderDto { Id = 1 });
 
             long orderID = order.Id;
             Assert.Equal(orderID, ID);
         }
 
         [Fact]
-        public void GetAsync_GetCollection_NotEmptyCollection()
+        public async void GetAsync_GetCollection_NotEmptyCollection()
         {
-            var list = _ordersService.GetAsync(true).Result;
+            var list = await _ordersService.GetAsync(true);
 
             Assert.NotEmpty(list);
         }
 
         [Fact]
-        public void IsExistAsync_CheckOrder_ExistOrderId1()
+        public async void IsExistAsync_CheckOrder_ExistOrderId1()
         {
-            var exist = _ordersService.IsExistAsync(new OrdersDto { Id = 1 }).Result;
+            var exist = await _ordersService.IsExistAsync(new OrderDto { Id = 1 });
 
             Assert.True(exist);
         }
 
         [Fact]
-        public void UpdateAsync_UpdateOrder_UpdatedOrderInDB()
+        public async void UpdateAsync_UpdateOrder_UpdatedOrderInDB()
         {
-            var order = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
+            var order = await _ordersService.FindAsync(new OrderDto { Id = 2 });
             order.TotalPrice = 10;
 
-            _ordersService.UpdateAsync(order);
+            await _ordersService.UpdateAsync(order);
 
-            var newOrder = _ordersService.FindAsync(new OrdersDto { Id = 1 }).Result;
+            var newOrder = await _ordersService.FindAsync(new OrderDto { Id = 2 });
 
             Assert.Equal(order, newOrder);
         }
