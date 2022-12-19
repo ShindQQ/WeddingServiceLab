@@ -20,6 +20,9 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     private readonly WeddingServiceContext Context;
 
+    /// <summary>
+    ///     Service for base entities
+    /// </summary>
     private readonly BaseService<BaseServiceEntity, BaseServiceDto> _baseService;
 
     /// <summary>
@@ -162,7 +165,7 @@ public sealed class OrdersService : IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    public async Task<bool> IsExistAsync(OrderDto entityDto)
+    public async ValueTask<bool> IsExistAsync(OrderDto entityDto)
     {
         return await Context.Orders
             .Include(e => e.Services)

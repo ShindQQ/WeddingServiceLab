@@ -49,5 +49,5 @@ public interface IBaseService<T1, T2> where T1 : BaseServiceEntity where T2 : Ba
     /// </summary>
     /// <param name="entityDto">Dto with needed params</param>
     /// <returns>True or false if entity not found</returns>
-    Task<bool> IsExistAsync(T2 entityDto);
+    ValueTask<bool> IsExistAsync(T2 entityDto);
 }

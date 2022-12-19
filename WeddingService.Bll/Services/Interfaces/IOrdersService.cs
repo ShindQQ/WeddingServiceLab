@@ -65,5 +65,5 @@ public interface IOrdersService
     /// </summary>
     /// <param name="entityDto">Order with neeeded params</param>
     /// <returns>True or false if not found</returns>
-    Task<bool> IsExistAsync(OrderDto entityDto);
+    ValueTask<bool> IsExistAsync(OrderDto entityDto);
 }

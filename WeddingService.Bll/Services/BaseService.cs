@@ -92,7 +92,7 @@ public class BaseService<T1, T2> : IBaseService<T1, T2> where T1 : BaseServiceEn
 	/// </summary>
 	/// <param name="entityDto">Dto with needed params</param>
 	/// <returns>True or false if entity not found</returns>
-	public virtual async Task<bool> IsExistAsync(T2 entityDto)
+	public virtual async ValueTask<bool> IsExistAsync(T2 entityDto)
 	{
 		return await Context.Set<T1>()
 			.Include(e => e.Orders)
